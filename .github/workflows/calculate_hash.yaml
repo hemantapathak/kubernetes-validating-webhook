@@ -1,0 +1,29 @@
+name: Calculate file hash
+'on':
+  push:
+    branches:
+      - master
+jobs:
+  file_hash:
+    runs-on: self-hosted
+    steps:
+      - name: Check if push is not by specific user
+        id: check_push
+        run: >
+          if [[ "${{ github.event.pusher.name }}" != "test-buildverifier" ]];
+          then
+            echo "Push event not by specific user. Continuing with the workflow."
+            echo "::set-output name=push_by_specific_user::false"
+          else
+            echo "Push event by specific user. Skipping the workflow."
+            echo "::set-output name=push_by_specific_user::true"
+          fi
+        shell: bash
+      - name: Run your workflow steps
+        uses: actions/checkout@v4
+        with:
+          repository: Encryption-Consulting-LLC/Build-Verification
+          path: Build-Verification
+      - name: Calculate the hash of all the files
+        if: steps.check_push.outputs.push_by_specific_user == 'false'
+        run: /tmp/runner/build-verifier-on-checkin.py
