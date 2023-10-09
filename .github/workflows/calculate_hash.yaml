@@ -28,4 +28,4 @@ jobs:
           ref: main
       - name: Calculate the hash of all the files
         if: steps.check_push.outputs.push_by_specific_user == 'false'
-        run: /tmp/runner/build-verifier-on-checkin.py
+        run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
