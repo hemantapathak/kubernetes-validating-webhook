@@ -27,6 +27,7 @@ jobs:
           path: 
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
+          clean: false
       - name: printing
         run: echo "Printing ----------$GITHUB_WORKSPACE"
       - name: Calculate the hash of all the files
