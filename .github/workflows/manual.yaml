@@ -20,7 +20,6 @@ jobs:
           path: fdfd
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: master
-          run: echo "$GITHUB_WORKSPACE"
       - name: Post build calculate hash of all the files
         uses: actions/checkout@v4
         with:
@@ -28,6 +27,8 @@ jobs:
           path: 
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
+      - name: printing
+        run: echo "Printing ----------$GITHUB_WORKSPACE"
       - name: Calculate the hash of all the files
         if: steps.check_push.outputs.push_by_specific_user == 'false'
         run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
