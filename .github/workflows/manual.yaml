@@ -29,9 +29,9 @@ jobs:
           ref: main
           clean: false
       - name: printing
-        run: echo "Printing ----------$GITHUB_WORKSPACE/$env.LOCAL_PATH"
+        run: echo "Printing ----------$GITHUB_WORKSPACE/$LOCAL_PATH"
       - name: printing localpath
-        run: echo "--------$env.LOCAL_PATH"  
+        run: echo "--------$LOCAL_PATH"  
       - name: Calculate the hash of all the files
         if: steps.check_push.outputs.push_by_specific_user == 'false'
         run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
