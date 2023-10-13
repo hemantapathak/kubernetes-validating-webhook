@@ -20,8 +20,6 @@ jobs:
           path: $LOCAL_PATH
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: master
-      - name: printing environment variables
-        run: echo "---Reg -$GITHUB_REF_NAME	---Repo -$GITHUB_REPOSITORY"
       - name: Post build calculate hash of all the files
         uses: actions/checkout@v4
         with:
@@ -31,4 +29,10 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
-        run: $GITHUB_WORKSPACE/build-verifier-on-build-trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH
+        id: get-hash
+        run: |
+          $output=($GITHUB_WORKSPACE/build-verifier-on-build-trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH)
+          Write-Output "::set-output name=FILE_HASHES::$output"
+      - name: Verify the hashes
+        # Usage: verify.py repo_name branch_name file_hash_input
+        run: $GITHUB_WORKSPACE/verify_hash.py $GITHUB_REPOSITORY $GITHUB_REF_NAME  ${{ steps.get-hash.outputs.FILE_HASHES }}
