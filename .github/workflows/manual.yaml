@@ -11,27 +11,22 @@ jobs:
   file_hash:
     runs-on: self-hosted
     env:
-      LOCAL_PATH: hello
+      LOCAL_PATH: checkout
     steps:
       - name: Build the code
         uses: actions/checkout@v4
         with:
           repository: ''
-          path: checkout
+          path: $LOCAL_PATH
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: master
       - name: Post build calculate hash of all the files
         uses: actions/checkout@v4
         with:
           repository: Encryption-Consulting-LLC/Build-Verification
-          path: 
+          path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
           clean: false
-      - name: printing
-        run: echo "Printing ----------$GITHUB_WORKSPACE/$LOCAL_PATH"
-      - name: printing localpath
-        run: echo "--------$LOCAL_PATH"  
       - name: Calculate the hash of all the files
-        if: steps.check_push.outputs.push_by_specific_user == 'false'
         run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
