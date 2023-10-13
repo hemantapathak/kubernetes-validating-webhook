@@ -20,6 +20,8 @@ jobs:
           path: $LOCAL_PATH
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: master
+      - name: printing environment variables
+        run: echo "---Reg -$GITHUB_REF_NAME	---Repo -$GITHUB_REPOSITORY"
       - name: Post build calculate hash of all the files
         uses: actions/checkout@v4
         with:
