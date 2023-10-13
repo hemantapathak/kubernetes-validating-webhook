@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Encryption-Consulting-LLC/Build-Verification
-          path:
+          path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
       - name: Calculate the hash of all the files
