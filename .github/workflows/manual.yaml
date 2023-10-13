@@ -29,4 +29,4 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
-        run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
+        run: $GITHUB_WORKSPACE/build-verifier-on-build-trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH
