@@ -33,7 +33,7 @@ jobs:
       - name: Calculate the hash of all the files
         id: get-hash
         run: |
-          $output="$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH"
+          $output=("$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH")
           Write-Output "::set-output name=FILE_HASHES::$output"
       - name: Verify the hashes
         # Usage: verify.py repo_name branch_name file_hash_input
