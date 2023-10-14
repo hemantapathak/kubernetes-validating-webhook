@@ -17,9 +17,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ''
-          path: $(LOCAL_PATH)
+          path: ${{env.LOCAL_PATH}}
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: master
+      - name: Printing variable...
+        run: echo "-----$LOCAL_PATH"
       - name: Post build calculate hash of all the files
         uses: actions/checkout@v4
         with:
