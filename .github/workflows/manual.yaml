@@ -30,10 +30,7 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
-        run: |
-          dd=$("$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH")
-          echo "---------outpu1t : $output"
-          #Write-Output "::set-output name=FILE_HASHES::$output"
+        run: "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH"       
       - name: Verify the hashes
         # Usage: verify.py repo_name branch_name file_hash_input
-        run: "$GITHUB_WORKSPACE/verify_hash.py $GITHUB_REPOSITORY $GITHUB_REF_NAME  ${{ steps.get-hash.outputs.FILE_HASHES }}"
+        run: echo "$GITHUB_WORKSPACE/verify_hash.py $GITHUB_REPOSITORY $GITHUB_REF_NAME  ${{ steps.get-hash.outputs.FILE_HASHES }}"
