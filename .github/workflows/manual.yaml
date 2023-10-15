@@ -32,11 +32,9 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
-        env:
-          OUTPUT: "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH"
         run: |
-          #(output="$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH")
-          echo "---------output : $output"
+          output= "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH"
+          echo "---------outpu1t : $output"
           #Write-Output "::set-output name=FILE_HASHES::$output"
       - name: Verify the hashes
         # Usage: verify.py repo_name branch_name file_hash_input
