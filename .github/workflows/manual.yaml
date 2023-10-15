@@ -30,6 +30,7 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
+        id: run_command
         run: "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/$LOCAL_PATH"
       - name: printing values
         run: echo "Captured stdout: ${{ steps.run_command.outputs.stdout }}"
