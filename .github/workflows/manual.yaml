@@ -35,8 +35,13 @@ jobs:
         run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
         
       - name: Calculate the hash of all the files
+        id: run_script
         run: ${{steps.check_push1.outputs.hash_cmd}}
         
-      - name: Printing output
-        run: echo " -----${{ steps.check_push1.outputs.hash_cmd }}"
+      - name: Check for errors
+        run: |
+          if [[ "${{ steps.run_script.outputs.stdout }}" == *"##[error]"* ]]; then
+            echo "An error occurred: ${{ steps.run_script.outputs.stdout }}"
+            exit 1  # Fail the workflow
+          fi
               
