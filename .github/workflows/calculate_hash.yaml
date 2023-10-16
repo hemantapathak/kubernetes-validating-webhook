@@ -27,10 +27,10 @@ jobs:
           path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
-          
+        
       - name: Forming the command to execute
         id: cal_hash
-        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE"
+        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py "
         
       - name: Calculate the hash of all the files
         id: run_script
