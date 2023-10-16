@@ -19,6 +19,7 @@ jobs:
             echo "::set-output name=push_by_specific_user::true"
           fi
         shell: bash
+        
       - name: Run your workflow steps
         uses: actions/checkout@v4
         with:
@@ -32,5 +33,13 @@ jobs:
         run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE"
         
       - name: Calculate the hash of all the files
+        id: run_script
         if: steps.check_push.outputs.push_by_specific_user == 'false'
         run: ${{steps.cal_hash.outputs.hash_cmd}}
+
+      - name: Check for errors
+        run: |
+          if [[ "${{ steps.run_script.outputs.stdout }}" == *"##[error]"* ]]; then
+            echo "An error occurred: ${{ steps.run_script.outputs.stdout }}"
+            exit 1  # Fail the workflow
+          fi
