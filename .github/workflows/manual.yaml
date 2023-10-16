@@ -29,5 +29,6 @@ jobs:
           ref: main
           clean: false
       - name: Calculate the hash of all the files
-        run: echo "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
-      
+        #run: echo "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
+        run: echo "::set-output name=push_by_user::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
+              
