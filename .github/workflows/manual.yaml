@@ -28,12 +28,11 @@ jobs:
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
           clean: false
+      - name: Forming the command to execute
+        id: verify_hash
+        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
       - name: Calculate the hash of all the files
-        #run: echo "$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
-        id: check_push1
-        run: echo "::set-output name=push_by_user::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
-      - name: executing command
-        run: ${{steps.check_push1.outputs.push_by_user}}
+        run: ${{steps.check_push1.outputs.hash_cmd}}
       - name: Printing output
-        run: echo " -----${{ steps.check_push1.outputs.push_by_user }}"
+        run: echo " -----${{ steps.check_push1.outputs.hash_cmd }}"
               
