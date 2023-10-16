@@ -26,6 +26,11 @@ jobs:
           path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
+          
+      - name: Forming the command to execute
+        id: cal_hash
+        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE"
+        
       - name: Calculate the hash of all the files
         if: steps.check_push.outputs.push_by_specific_user == 'false'
-        run: /tmp/runner/kubernetes-validating-webhook/kubernetes-validating-webhook/build-verifier-on-checkin.py
+        run: ${{steps.cal_hash.outputs.hash_cmd}}
