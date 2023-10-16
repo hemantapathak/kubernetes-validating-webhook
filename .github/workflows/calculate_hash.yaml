@@ -30,7 +30,7 @@ jobs:
         
       - name: Forming the command to execute
         id: cal_hash
-        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py "
+        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE"
         
       - name: Calculate the hash of all the files
         id: run_script
