@@ -3,6 +3,8 @@ name: Calculate file hash1
   push:
     branches:
       - master
+    paths-ignore:
+      - '**/file_hash.txt'
 jobs:
   file_hash:
     runs-on: self-hosted
