@@ -35,7 +35,7 @@ jobs:
         
       - name: Calculate the hash of all the files
         id: run_script
-        run: ${{steps.check_push1.outputs.hash_cmd}}
+        run: ${{steps.verify_hash.outputs.hash_cmd}}
         
       - name: Check for errors
         run: |
