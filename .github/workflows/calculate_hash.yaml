@@ -1,4 +1,4 @@
-name: Calculate file hash1
+name: Calculate file hash2
 'on':
   push:
     branches:
