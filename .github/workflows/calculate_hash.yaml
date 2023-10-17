@@ -8,18 +8,28 @@ name: Calculate file hash1
 jobs:
   file_hash:
     runs-on: self-hosted
+    env:
+      LOCAL_PATH: checkout
     steps:
-      - name: Run your workflow steps
+      - name: Checkout the infrastructure code
         uses: actions/checkout@v4
         with:
           repository: Encryption-Consulting-LLC/Build-Verification
           path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
-        
+          
+      - name: Checkout the code for which file hash needs to be calculated
+        uses: actions/checkout@v4
+        with:
+          repository: ''
+          path: ${{env.LOCAL_PATH}}
+          token: ${{ secrets.BUILD_VERIFIER }}
+          ref: master
+          
       - name: Forming the command to execute
         id: cal_hash
-        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE"
+        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build-verifier-on-checkin.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
         
       - name: Calculate the hash of all the files
         id: run_script
