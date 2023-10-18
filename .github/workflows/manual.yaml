@@ -39,8 +39,8 @@ jobs:
         
       - name: Check for errors
         run: |
-          if [[ "${{ steps.run_verify_script.outputs.stdout }}" == "[Error]"* ]]; then
-            echo "An error occurred: ${{ steps.run_vverify_script.outputs.stdout }}"
+          if [[ "${{ steps.run_verify_script.outputs.stdout }}" == "[error]"* ]]; then
+            echo "An error occurred: ${{ steps.run_verify_script.outputs.stdout }}"
             exit 1  # Fail the workflow
           fi
               
