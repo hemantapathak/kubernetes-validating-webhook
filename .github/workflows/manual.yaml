@@ -31,7 +31,9 @@ jobs:
           
       - name: Forming the command to execute
         id: verify_hash
-        run: echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
+        run: |
+          echo "::set-output name=hash_cmd::$GITHUB_WORKSPACE/build_verifier_on_build_trigger.py $GITHUB_WORKSPACE/${{env.LOCAL_PATH}} $GITHUB_REPOSITORY $GITHUB_REF_NAME"
+          mkdir -p /tmp/build-verification/
         
       - name: Calculate the hash of all the files
         id: run_verify_script
