@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
           id: step_one
-          run: echo "token_value=${{token}}" >> "$GITHUB_ENV"
+          run: echo "token_value=${token}" >> "$GITHUB_ENV"
           
       - name: print token value
         run: |
