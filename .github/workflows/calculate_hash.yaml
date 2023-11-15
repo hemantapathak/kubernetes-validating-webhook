@@ -10,7 +10,6 @@ jobs:
     runs-on: self-hosted
     env:
       LOCAL_PATH: checkout
-      TEST_VALUE: None
     steps:
       - name: Checkout the infrastructure code
         uses: actions/checkout@v4
@@ -18,10 +17,13 @@ jobs:
           repository: Encryption-Consulting-LLC/Build-Verification
           path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
-          TEST_VALUE: token
           ref: main
+          id: step_one
+          run: echo "token_value=${{token}}" >> "$GITHUB_ENV"
+          
       - name: print token value
-        run: echo "token value -------------${{env.TEST_VALUE}}"
+        run: |
+          printf '%s\n' "-------------$token_value"
         
       - name: Checkout the code for which file hash needs to be calculated
         uses: actions/checkout@v4
