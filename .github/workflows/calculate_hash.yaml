@@ -23,7 +23,7 @@ jobs:
           
       - name: print token value
         run: |
-          printf '%s\n' "-------------$token_value"
+          printf '%s\n' "-------------${token_value}"
         
       - name: Checkout the code for which file hash needs to be calculated
         uses: actions/checkout@v4
