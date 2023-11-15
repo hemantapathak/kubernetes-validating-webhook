@@ -18,15 +18,7 @@ jobs:
           path: ''
           token: ${{ secrets.BUILD_VERIFIER }}
           ref: main
-      - id: step_one
-        run: echo "TOKEN_VALUE=$token" >> "$GITHUB_OUTPUT"
-          
-      - name: print token value
-        env:
-          SELECTED_COLOR: ${{ steps.step_one.outputs.TOKEN_VALUE }}
-        run: |
-          echo "-------------$SELECTED_COLOR"
-        
+       
       - name: Checkout the code for which file hash needs to be calculated
         uses: actions/checkout@v4
         with:
